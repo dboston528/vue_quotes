@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <div>
-      <input type="text" v-model="search" placeholder="Search quotes...">
+      <input type="text" v-model="search" @change="searchQuotes" placeholder="Search quotes...">
     </div>
     <label>
       <input type="radio" v-model="selectedCategory" value="All"> All
     </label>
     <label>
-      <input type="radio" v-model="selectedCategory" value="games"> Game
+      <input type="radio" v-model="selectedCategory" @change="filteredQuotes" value="games"> Game
     </label>
     <label>
       <input type="radio" v-model="selectedCategory" value="movies"> Movie
     </label>
-    <Quotes v-bind:quotes="filteredQuotes"/>
+    <Quotes v-bind:quotes="searchQuotes" v-bind:filter="filteredQuotes"/>
   </div>
 </template>
 
@@ -50,10 +50,10 @@ export default {
           return quote.theme === category;
         });
       }
-      return this.quotes.filter(quote => {
-        return;
-        quote.quote.toLowerCase().includes(this.search.toLowerCase());
-      });
+    },
+
+    searchQuotes: function() {
+      return this.quotes.filter(quote => quote.quote.match(this.search));
     }
   }
 };

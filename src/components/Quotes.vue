@@ -25,6 +25,10 @@ export default {
       type: Number,
       required: false,
       default: 10
+    },
+    search: {
+      type: Array,
+      required: true
     }
   },
 
