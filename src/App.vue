@@ -7,12 +7,12 @@
       <input type="radio" v-model="selectedCategory" value="All"> All
     </label>
     <label>
-      <input type="radio" v-model="selectedCategory" @change="filteredQuotes" value="games"> Game
+      <input type="radio" v-model="selectedCategory" @click="displayedQuotes" value="games"> Game
     </label>
     <label>
       <input type="radio" v-model="selectedCategory" value="movies"> Movie
     </label>
-    <Quotes v-bind:quotes="searchQuotes" v-bind:filter="filteredQuotes"/>
+    <Quotes v-bind:quotes="this.displayedQuotes"/>
   </div>
 </template>
 
@@ -29,7 +29,8 @@ export default {
     return {
       quotes: [],
       selectedCategory: "All",
-      search: ""
+      search: "",
+      displayedQuotes: []
     };
   },
   created() {
@@ -37,23 +38,28 @@ export default {
       .get(
         "https://gist.githubusercontent.com/benchprep/dffc3bffa9704626aa8832a3b4de5b27/raw/quotes.json"
       )
-      .then(res => (this.quotes = res.data))
+      .then(res => {
+        this.quotes = res.data;
+        this.displayedQuotes = [...res.data];
+      })
       .catch(err => console.log(err));
   },
   computed: {
     filteredQuotes: function() {
       var category = this.selectedCategory;
       if (category === "All") {
-        return this.quotes;
+        return this.displayedQuotes;
       } else {
-        return this.quotes.filter(function(quote) {
+        return this.displayedQuotes.filter(function(quote) {
           return quote.theme === category;
         });
       }
     },
 
     searchQuotes: function() {
-      return this.quotes.filter(quote => quote.quote.match(this.search));
+      return this.displayedQuotes.filter(quote =>
+        quote.quote.match(this.search)
+      );
     }
   }
 };
