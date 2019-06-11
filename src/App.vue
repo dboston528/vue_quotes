@@ -4,15 +4,15 @@
       <input type="text" v-model="search" @change="searchQuotes" placeholder="Search quotes...">
     </div>
     <label>
-      <input type="radio" v-model="selectedCategory" value="All"> All
+      <input type="radio" v-model="selectedCategory" @click="filteredQuotes" value="All"> All
     </label>
     <label>
-      <input type="radio" v-model="selectedCategory" @click="displayedQuotes" value="games"> Game
+      <input type="radio" v-model="selectedCategory" @click="filteredQuotes" value="games"> Game
     </label>
     <label>
-      <input type="radio" v-model="selectedCategory" value="movies"> Movie
+      <input type="radio" v-model="selectedCategory" @click="filteredQuotes" value="movies"> Movie
     </label>
-    <Quotes v-bind:quotes="this.displayedQuotes"/>
+    <Quotes v-bind:quotes="displayedQuotes"/>
   </div>
 </template>
 
