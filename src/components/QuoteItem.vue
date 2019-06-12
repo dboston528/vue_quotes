@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p>{{quote.quote}}</p>
+    <h3>{{quote.quote}}</h3>
+    <p>{{quote.source}}</p>
   </div>
 </template>
 

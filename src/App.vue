@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <div>
-      <input type="text" v-model="search" @change="searchQuotes" placeholder="Search quotes...">
+      <input class="search" type="text" v-model="search" placeholder="Search quotes...">
     </div>
     <label>
-      <input type="radio" v-model="selectedCategory" @click="filteredQuotes" value="All"> All
+      <input type="radio" v-model="selectedCategory" value="All"> All
     </label>
     <label>
-      <input type="radio" v-model="selectedCategory" @click="filteredQuotes" value="games"> Game
+      <input type="radio" v-model="selectedCategory" value="games"> Game
     </label>
     <label>
-      <input type="radio" v-model="selectedCategory" @click="filteredQuotes" value="movies"> Movie
+      <input type="radio" v-model="selectedCategory" value="movies"> Movie
     </label>
     <Quotes v-bind:quotes="displayedQuotes"/>
   </div>
@@ -48,17 +48,19 @@ export default {
     filteredQuotes: function() {
       var category = this.selectedCategory;
       if (category === "All") {
-        return this.displayedQuotes;
+        return (this.displayedQuotes = this.quotes);
       } else {
-        return this.displayedQuotes.filter(function(quote) {
+        return (this.displayedQuotes = this.quotes.filter(function(quote) {
           return quote.theme === category;
-        });
+        }));
       }
     },
 
     searchQuotes: function() {
-      return this.displayedQuotes.filter(quote =>
-        quote.quote.match(this.search)
+      this.$set(
+        (displayedQuotes = this.quotes.filter(quote =>
+          quote.quote.match(this.search)
+        ))
       );
     }
   }
@@ -73,5 +75,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.search {
+  margin-bottom: 15px;
 }
 </style>
