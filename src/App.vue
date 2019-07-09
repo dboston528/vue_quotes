@@ -16,7 +16,10 @@
 
     <div v-else-if="selectedCategory===`games`">
       <h1>This should display all of the game quotes</h1>
-      <p>{{ gameQuotes }}</p>
+    </div>
+
+    <div v-else-if="selectedCategory===`movies`">
+      <h1>This should display all of the movie quotes</h1>
     </div>
     <!-- <p>{{ filteredQuotes }}</p> -->
     <!-- <p>{{ searchQuotes }}</p> -->
