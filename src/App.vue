@@ -12,7 +12,9 @@
     <label>
       <input type="radio" v-model="selectedCategory" value="movies"> Movie
     </label>
-    <Quotes v-bind:quotes="displayedQuotes"/>
+    <Quotes v-bind:quotes="displayedQuotes" v-if="selectedCategory=`All`"/>
+    <!-- <p>{{ filteredQuotes }}</p> -->
+    <!-- <p>{{ searchQuotes }}</p> -->
   </div>
 </template>
 
