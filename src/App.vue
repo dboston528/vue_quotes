@@ -12,7 +12,12 @@
     <label>
       <input type="radio" v-model="selectedCategory" value="movies"> Movie
     </label>
-    <Quotes v-bind:quotes="displayedQuotes" v-if="selectedCategory=`All`"/>
+    <Quotes v-bind:quotes="displayedQuotes" v-if="selectedCategory===`All`"/>
+
+    <div v-else-if="selectedCategory===`games`">
+      <h1>This should display all of the game quotes</h1>
+      <p>{{ gameQuotes }}</p>
+    </div>
     <!-- <p>{{ filteredQuotes }}</p> -->
     <!-- <p>{{ searchQuotes }}</p> -->
   </div>
@@ -58,6 +63,14 @@ export default {
       }
     },
 
+    gameQuotes: function() {
+      var category = this.selectedCategory;
+      if (category === "games") {
+        return (this.displayedQuotes = this.quotes.filter(function(quote) {
+          return quote.theme === category;
+        }));
+      }
+    },
     searchQuotes: function() {
       this.$set(
         (displayedQuotes = this.quotes.filter(quote =>
