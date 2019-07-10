@@ -12,15 +12,21 @@
     <label>
       <input type="radio" v-model="selectedCategory" value="movies"> Movie
     </label>
-    <Quotes v-bind:quotes="displayedQuotes" v-if="selectedCategory===`All`"/>
+    <Quotes v-bind:quotes="quotes" v-if="selectedCategory===`All`"/>
 
-    <div v-else-if="selectedCategory===`games`">
-      <h1>This should display all of the game quotes</h1>
-    </div>
+    <Quotes v-bind:quotes="filteredQuotesa" v-else-if="selectedCategory===`games`"/>
 
-    <div v-else-if="selectedCategory===`movies`">
+    <Quotes v-bind:quotes="filteredQuotesa" v-else-if="selectedCategory===`movies`"/>
+
+    <!-- <Quotes v-bind:quotes="searchQuotesa" v-else/> -->
+
+    <!-- <div v-bind:quotes="filteredQuotesa" v-else-if="selectedCategory===`games`"> -->
+    <!-- <h1>This should display all of the game quotes</h1> -->
+    <!-- </div> -->
+
+    <!-- <div v-else-if="selectedCategory===`movies`">
       <h1>This should display all of the movie quotes</h1>
-    </div>
+    </div>-->
     <!-- <p>{{ filteredQuotes }}</p> -->
     <!-- <p>{{ searchQuotes }}</p> -->
   </div>
@@ -50,7 +56,7 @@ export default {
       )
       .then(res => {
         this.quotes = res.data;
-        this.displayedQuotes = [...res.data];
+        // this.displayedQuotes = [...res.data];
       })
       .catch(err => console.log(err));
   },
@@ -66,20 +72,27 @@ export default {
       }
     },
 
-    gameQuotes: function() {
+    filteredQuotesa: function() {
       var category = this.selectedCategory;
-      if (category === "games") {
-        return (this.displayedQuotes = this.quotes.filter(function(quote) {
+      if (category === "All") {
+        return this.quotes;
+      } else {
+        return this.quotes.filter(function(quote) {
           return quote.theme === category;
-        }));
+        });
       }
     },
+
     searchQuotes: function() {
       this.$set(
         (displayedQuotes = this.quotes.filter(quote =>
           quote.quote.match(this.search)
         ))
       );
+    },
+
+    searchQuotesa: function() {
+      return this.quotes.filter(quote => quote.quote.match(this.search));
     }
   }
 };
