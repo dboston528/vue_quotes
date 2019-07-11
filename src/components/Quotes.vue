@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Quote List</h1>
     <div v-for="quote in paginatedData">
       <QuoteItem v-bind:quote="quote"/>
     </div>

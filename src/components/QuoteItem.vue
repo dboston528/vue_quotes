@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="quote">
     <h3>{{quote.quote}}</h3>
     <p>{{quote.source}}</p>
   </div>
@@ -15,4 +15,9 @@ export default {
 </script>
 
 <style scoped>
+.quote {
+  background: lightblue;
+  width: 600px;
+  margin: auto;
+}
 </style>

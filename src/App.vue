@@ -12,7 +12,7 @@
     <label>
       <input type="radio" v-model="selectedCategory" value="movies"> Movie
     </label>
-    <Quotes v-bind:quotes="quotes" v-if="selectedCategory===`All`"/>
+    <Quotes v-bind:quotes="searchQuotesa" v-if="selectedCategory===`All`"/>
 
     <Quotes v-bind:quotes="filteredQuotesa" v-else-if="selectedCategory===`games`"/>
 
@@ -28,7 +28,7 @@
       <h1>This should display all of the movie quotes</h1>
     </div>-->
     <!-- <p>{{ filteredQuotes }}</p> -->
-    <!-- <p>{{ searchQuotes }}</p> -->
+    <!-- <p>{{ searchQuotesa }}</p> -->
   </div>
 </template>
 
@@ -61,16 +61,16 @@ export default {
       .catch(err => console.log(err));
   },
   computed: {
-    filteredQuotes: function() {
-      var category = this.selectedCategory;
-      if (category === "All") {
-        return (this.displayedQuotes = this.quotes);
-      } else {
-        return (this.displayedQuotes = this.quotes.filter(function(quote) {
-          return quote.theme === category;
-        }));
-      }
-    },
+    // filteredQuotes: function() {
+    //   var category = this.selectedCategory;
+    //   if (category === "All") {
+    //     return (this.displayedQuotes = this.quotes);
+    //   } else {
+    //     return (this.displayedQuotes = this.quotes.filter(function(quote) {
+    //       return quote.theme === category;
+    //     }));
+    //   }
+    // },
 
     filteredQuotesa: function() {
       var category = this.selectedCategory;
@@ -112,5 +112,6 @@ export default {
 
 .search {
   margin-bottom: 15px;
+  width: 600px;
 }
 </style>
